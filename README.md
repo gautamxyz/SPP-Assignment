@@ -19,7 +19,7 @@
 
    - Using the whetstone program for bench-marking the GFlops obtained 
    
-   ![image](../GRAPH/Figure_whet.png)
+   ![image](./GRAPH/Figure_whet.png)
 
 3. 
     - Main memory size : 8GB, max main memory size: 64GB
@@ -57,7 +57,7 @@
 `#pragma omp parallel` and `#pragma omp for simd` were used for both parallelization and vecorizaton and the results were again about the same as before
 
 ### Comparison wth BLIS
-![image](../GRAPH/blis4.png)
+![image](./GRAPH/blis4.png)
 
 
 ## DSCAL
@@ -89,7 +89,7 @@
 
 ### Coparison with BLIS
 
-![image](../GRAPH/blis5.png)
+![image](./GRAPH/blis5.png)
 
 ## DAXPY
 1. Operational Intensity=(No. of operations performed)/(Bytes of memory fetched)=(2*N)/(8*N+8*N)=0.125
@@ -123,7 +123,7 @@ Since the matrix is stored in row major format , we should decrease the memory a
 8. **Techniques used for optimisation**: `#pragma omp parallel` and `#pragma omp for simd` were used for parallelization and vectorization in sdot and sgemv which gave the best result of 10.37 GFLOPs. Overall the results given by icc compiler with/without optimization turn out to be better than those from gcc.
 
 
-![image](../GRAPH/Figure_1.png)
+![image](./GRAPH/Figure_1.png)
 
 ### Row major and Transpose (sgemv2)
 Here the matrix is stored in transpose format. So it is better to use `saxpy` program from BLAS level 1. It will reduce memory access and thus reduce the latency in our computation.
@@ -137,9 +137,9 @@ Here the matrix is stored in transpose format. So it is better to use `saxpy` pr
 7. OI=(2mn+2n)/(4(mn+m+n)) which on taking limit turns out to be 0.5
 8. **Techniques used for optimisation**: `#pragma omp parallel` and `#pragma omp for simd` were used for parallelization and vectorization in sdot and sgemv which gave the best result of 9.11 GFLOPs. Overall the results given by icc compiler with/without optimization turn out to be better than those from gcc.
 
-![image](../GRAPH/sgemv2.png)
+![image](./GRAPH/sgemv2.png)
 
-![image](../GRAPH/Figure_2.png)
+![image](./GRAPH/Figure_2.png)
 
 ### Col major and No Transpose (sgemv3)
 This is similar to the previous case. Since the matrix is stored in stored in column major fashion we again use the `cblas_saxpy` which reduces the memory access latency.
@@ -152,9 +152,9 @@ This is similar to the previous case. Since the matrix is stored in stored in co
 7. OI=(2mn+2m)/(4(mn+m+n)) which on taking limit turns out to be 0.5
 8. **Techniques used for optimisation**: `#pragma omp parallel` and `#pragma omp for simd` were used for parallelization and vectorization in sdot and sgemv which gave the best result of 10.23 GFLOPs. Overall the results given by icc compiler with/without optimization turn out to be better than those from gcc.
 
-![image](../GRAPH/sgemv.png)
+![image](./GRAPH/sgemv.png)
 
-![image](../GRAPH/Figure_3.png)
+![image](./GRAPH/Figure_3.png)
 
 ### Col major and Transpose (sgemv4)
 Again, this is similar to the first case so we realize that using `cblas_sdot` is better than using saxpy
@@ -167,9 +167,9 @@ Again, this is similar to the first case so we realize that using `cblas_sdot` i
 7. OI=(2mn+2n)/(4(mn+m+n)) which on taking limit turns out to be 0.5
 8. **Techniques used for optimisation**: `#pragma omp parallel` and `#pragma omp for simd` were used for parallelization and vectorization in sdot and sgemv which gave the best result of 9.74 GFLOPs. Overall the results given by icc compiler with/without optimization turn out to be better than those from gcc.
 
-![image](../GRAPH/sgemv4.png)
+![image](./GRAPH/sgemv4.png)
 
-![image](../GRAPH/Figure_4.png)
+![image](./GRAPH/Figure_4.png)
 
 In all 4 cases the program is memory bound
 
@@ -177,7 +177,7 @@ In all 4 cases the program is memory bound
 
 ### Comparison with BLIS
 
-![image](../GRAPH/blis2.png)
+![image](./GRAPH/blis2.png)
 
 # BLAS Level 3
 
@@ -196,11 +196,11 @@ OI=(2.0 * m * n * k + 2.0 * n * m)/((4.0 * (m * n + m * k + n * k)))
 |sgemm8 (Col major, trans, trans)|12.55|2.82|0.77|0.15|
 
 For BLAS Level-3, BLAS Level-2 routines were used that were already optimised.
-![image](../GRAPH/sgemm.png)
+![image](./GRAPH/sgemm.png)
 
 ### Comparison with BLIS
 
-![image](../GRAPH/blis3.png)
+![image](./GRAPH/blis3.png)
 
 
 
@@ -213,15 +213,15 @@ For BLAS Level-3, BLAS Level-2 routines were used that were already optimised.
 
 icc -O3
 
-![image](../GRAPH/1.png)
+![image](./GRAPH/1.png)
 
 gcc -O3 (gives best GFLOPs)
 
-![image](../GRAPH/2.png)
+![image](./GRAPH/2.png)
 
 Baseline 
 
-![image](../GRAPH/stencil-O0.png)
+![image](./GRAPH/stencil-O0.png)
 
 
 - Speedup = 3.15-0.45 = 2.70 GFLOPs
